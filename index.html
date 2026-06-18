@@ -197,7 +197,7 @@
                         
                         <!-- Main Frame holding the photo -->
                         <div class="relative w-full h-full rounded-[2.2rem] overflow-hidden border-4 border-white dark:border-slate-900 bg-slate-100 dark:bg-slate-900 shadow-2xl">
-                            <img src="https://lh3.googleusercontent.com/d/1Dsk52TNVgNPwJiU75hIEwb5pM72fQGHS" 
+                            <img src="https://lh3.googleusercontent.com/d/1Dsk52TNVgNPwJiU75hIEwb5pM72fQGHS=w1000" 
                                  alt="Mohamed Yasser Abd Elaziz - Mohamed Yasser - Professional Engineering Portfolio V1"
                                  id="profileImage"
                                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -951,11 +951,25 @@
             startTypewriterEffect();
         }
 
-        /* Fallback avatar generator in case local image isn't configured yet */
+        let fallbackAttempts = 0;
         function loadFallbackAvatar(imgElement) {
-            // Using a high-quality SVG placeholder dynamically drawn to avoid breaking the design
-            imgElement.onerror = null; // Prevent looping
-            imgElement.src = "https://placehold.co/600x600/f05a30/ffffff?text=MY";
+            // Prevent recursive loop crashes
+            imgElement.onerror = null; 
+            if (fallbackAttempts === 0) {
+                fallbackAttempts++;
+                // Try Strategy 2: Google Docs raw user content stream
+                imgElement.src = "https://drive.google.com/uc?export=view&id=1Dsk52TNVgNPwJiU75hIEwb5pM72fQGHS";
+                imgElement.onerror = function() { loadFallbackAvatar(imgElement); };
+            } else if (fallbackAttempts === 1) {
+                fallbackAttempts++;
+                // Try Strategy 3: Standard drive preview stream
+                imgElement.src = "https://drive.google.com/thumbnail?id=1Dsk52TNVgNPwJiU75hIEwb5pM72fQGHS&sz=w1000";
+                imgElement.onerror = function() { loadFallbackAvatar(imgElement); };
+            } else {
+                // If all direct embedding fails, fall back to a high-quality stylized placeholder and instruct user
+                imgElement.src = "https://placehold.co/600x600/f05a30/ffffff?text=M.Yasser";
+                console.warn("Notice: Please ensure your Google Drive image sharing setting is set to 'Anyone with the link' to load fully in live preview frames.");
+            }
         }
 
         /* Theme Toggle Trigger logic (Dark/Light Mode) */
