@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Yasser | Computer & Systems Engineer</title>
+    <!-- Fonts: Tajawal for Arabic, Inter for English -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind Configuration for custom colors -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        coral: {
+                            50: '#fff5f2',
+                            100: '#ffe6df',
+                            200: '#ffcfc4',
+                            300: '#ffa794',
+                            400: '#ff7354',
+                            500: '#f05a30', /* Hoodie Coral Accent */
+                            600: '#dc4018',
+                            700: '#b93010',
+                            800: '#962911',
+                            900: '#7d2512',
+                        },
+                        slate: {
+                            950: '#0b0f19',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transitions for theme toggles and components */
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        /* Custom typing cursor effect */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 0.8s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        /* Background animations */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(128, 128, 128, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(128, 128, 128, 0.05) 1px, transparent 1px);
+        }
+        .dark .bg-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans min-h-screen relative overflow-x-hidden bg-grid">
+
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 transition-all duration-300">
+        <div class="max-w-7xl px-4 sm:px-6 lg:px-8 h-16 mx-auto flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-2 gap-2 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-coral-500 to-amber-500 flex items-center justify-center text-white font-bold shadow-lg shadow-coral-500/20 group-hover:scale-105 transition-transform">
+                    MY
+                </div>
+                <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-coral-500 to-amber-500 bg-clip-text text-transparent">
+                    M. Yasser
+                </span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-4 gap-6">
+                <a href="#about" data-translate="nav-about" class="hover:text-coral-500 font-medium transition-colors">عنّي</a>
+                <a href="#skills" data-translate="nav-skills" class="hover:text-coral-500 font-medium transition-colors">المهارات</a>
+                <a href="#projects" data-translate="nav-projects" class="hover:text-coral-500 font-medium transition-colors">المشاريع</a>
+                <a href="#terminal" data-translate="nav-terminal" class="hover:text-coral-500 font-medium transition-colors">لوحة التحكم</a>
+                <a href="#contact" data-translate="nav-contact" class="hover:text-coral-500 font-medium transition-colors">اتصل بي</a>
+            </nav>
+
+            <!-- Control Buttons (Theme, Language, CV) -->
+            <div class="flex items-center gap-3">
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon dark:hidden text-lg"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-lg text-amber-400"></i>
+                </button>
+
+                <!-- Language Toggle -->
+                <button id="langToggle" class="px-3 h-10 rounded-lg border border-slate-200 dark:border-slate-800 flex items-center justify-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-900 text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <i class="fa-solid fa-globe text-coral-500"></i>
+                    <span id="langLabel">English</span>
+                </button>
+
+                <!-- Action Button -->
+                <a href="#contact" data-translate="btn-hire" class="hidden sm:inline-flex items-center px-4 py-2 text-sm font-semibold rounded-lg bg-coral-500 text-white hover:bg-coral-600 shadow-md shadow-coral-500/10 hover:shadow-coral-500/20 transition-all transform hover:-translate-y-0.5">
+                    توظيفي
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-4 space-y-3 shadow-xl">
+            <a href="#about" data-translate="nav-about" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">عنّي</a>
+            <a href="#skills" data-translate="nav-skills" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">المهارات</a>
+            <a href="#projects" data-translate="nav-projects" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">المشاريع</a>
+            <a href="#terminal" data-translate="nav-terminal" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">لوحة التحكم</a>
+            <a href="#contact" data-translate="nav-contact" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">اتصل بي</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="pt-32 pb-20 overflow-hidden relative min-h-screen flex items-center">
+        <!-- Floating decorative glowing blurred shapes -->
+        <div class="absolute top-1/4 left-1/10 w-72 h-72 bg-coral-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/10 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Textual Content (Grid: 7 Columns) -->
+                <div class="lg:col-span-7 text-center lg:text-right space-y-6 order-2 lg:order-1" id="heroTextContainer">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-coral-100 dark:bg-coral-950/50 border border-coral-200 dark:border-coral-900/50 text-coral-600 dark:text-coral-400 text-sm font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-coral-500 animate-pulse"></span>
+                        <span data-translate="hero-badge">متاح لفرص العمل والتدريب الفوري</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                        <span data-translate="hero-welcome">مرحباً، أنا</span> <br/>
+                        <span class="bg-gradient-to-r from-coral-500 via-coral-400 to-amber-500 bg-clip-text text-transparent">محمد ياسر عبد العزيز</span>
+                    </h1>
+
+                    <!-- Dynamic Typing Profession -->
+                    <div class="text-lg sm:text-2xl font-bold text-slate-600 dark:text-slate-300 min-h-[40px]">
+                        <span class="typing-cursor" id="dynamicProfession"></span>
+                    </div>
+
+                    <p data-translate="hero-desc" class="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        طالب هندسة حاسبات ونظم شغوف في جامعة الزقازيق. أجمع بين الدراسة الأكاديمية العميقة والخبرة العملية في هندسة البرمجيات وبناء قواعد البيانات وهيكلة خطوط معالجة البيانات (Data Pipelines).
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#contact" data-translate="hero-btn-contact" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-coral-500 hover:bg-coral-600 text-white shadow-lg shadow-coral-500/25 hover:shadow-coral-500/35 transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-paper-plane"></i>
+                            تواصل معي الآن
+                        </a>
+                        <a href="#projects" data-translate="hero-btn-projects" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-code"></i>
+                            رؤية المشاريع
+                        </a>
+                    </div>
+
+                    <!-- Tech Quick Stats/Socials -->
+                    <div class="flex items-center justify-center lg:justify-start gap-6 pt-6">
+                        <a href="https://linkedin.com/in/mohamed-eldk-224725254" target="_blank" class="text-2xl text-slate-400 hover:text-coral-500 transition-colors" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:M01283848839@gmail.com" class="text-2xl text-slate-400 hover:text-coral-500 transition-colors" title="Email">
+                            <i class="fa-solid fa-envelope"></i>
+                        </a>
+                        <a href="tel:+201283848839" class="text-2xl text-slate-400 hover:text-coral-500 transition-colors" title="Phone">
+                            <i class="fa-solid fa-phone"></i>
+                        </a>
+                        <span class="h-6 w-px bg-slate-300 dark:bg-slate-800"></span>
+                        <div class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                            <i class="fa-solid fa-location-dot text-coral-500"></i>
+                            <span data-translate="location-text">الشرقية، مصر</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portrait Visual Area (Grid: 5 Columns) -->
+                <div class="lg:col-span-5 flex justify-center order-1 lg:order-2">
+                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 group">
+                        <!-- Abstract outer tech rings -->
+                        <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-coral-500 to-amber-500 opacity-20 blur-xl group-hover:opacity-35 transition-opacity"></div>
+                        <div class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-coral-500 via-amber-500 to-coral-600 rounded-[2.5rem] opacity-30 group-hover:rotate-6 transition-all duration-500"></div>
+                        
+                        <!-- Main Frame holding the photo -->
+                        <div class="relative w-full h-full rounded-[2.2rem] overflow-hidden border-4 border-white dark:border-slate-900 bg-slate-100 dark:bg-slate-900 shadow-2xl">
+                            <!-- Try loading user's image. Fallback smoothly to clean modern SVG illustration with a warm background if fails -->
+                            <img src="https://placehold.co/600x600/f05a30/ffffff?text=MY" 
+                                 alt="Mohamed Yasser Abd Elaziz"
+                                 id="profileImage"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 onerror="loadFallbackAvatar(this)">
+                        </div>
+
+                        <!-- Mini Floating Stats Card on Portrait -->
+                        <div class="absolute -bottom-4 -left-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl rounded-2xl p-4 flex items-center gap-3 transform -rotate-2 hover:rotate-0 transition-transform">
+                            <div class="w-10 h-10 rounded-lg bg-coral-500/10 flex items-center justify-center text-coral-500 font-bold">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs text-slate-400 dark:text-slate-500 font-bold" data-translate="mini-card-sub">جامعة الزقازيق</h4>
+                                <p class="text-sm font-extrabold text-slate-800 dark:text-slate-200" data-translate="mini-card-title">هندسة حاسبات ونظم</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT ME & EDUCATION -->
+    <section id="about" class="py-24 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <h2 class="text-3xl sm:text-4xl font-black bg-gradient-to-r from-coral-500 to-amber-500 bg-clip-text text-transparent inline-block" data-translate="about-title">
+                    عنّي وتأهيلي الأكاديمي
+                </h2>
+                <div class="h-1.5 w-16 bg-coral-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 dark:text-slate-400" data-translate="about-subtitle">
+                    تفاصيل مساري الهندسي الأكاديمي والمهني
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <!-- Summary Column -->
+                <div class="lg:col-span-6 space-y-6">
+                    <h3 class="text-2xl font-extrabold" data-translate="about-header">نبذة عامة وتطلعات</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-justify" data-translate="about-p1">
+                        أنا مهندس أنظمة وحاسبات واعد، أسعى لتوظيف مهاراتي في تطوير برمجيات عالية الجودة وتحليل الأنظمة وحل المشكلات المعقدة. امتلك دافعاً قوياً للتعلم المستمر واكتساب مهارات وأدوات تقنية جديدة للمساهمة بفاعلية في دفع نمو المشاريع الابتكارية.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-justify" data-translate="about-p2">
+                        قمت بدراسة وتطبيق مفاهيم ممتازة في صياغة وهيكلة قواعد البيانات العلائقية (RDBMS)، وضبط استعلامات SQL، وهيكلة كود ميكانيكي نظيف وقابل للتوسعة باستخدام Python وجافا بالاعتماد على أسس البرمجة الكائنية التوجه (OOP).
+                    </p>
+
+                    <!-- Interactive Soft Skills Badges -->
+                    <div class="space-y-3 pt-4">
+                        <h4 class="font-bold text-slate-700 dark:text-slate-300" data-translate="soft-skills-title">المهارات الشخصية والقيادية:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-sm font-medium hover:bg-coral-500 hover:text-white transition-colors cursor-pointer" data-translate="soft-s1">التفكير التحليلي وحل المشكلات</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-sm font-medium hover:bg-coral-500 hover:text-white transition-colors cursor-pointer" data-translate="soft-s2">العمل الجماعي وتوزيع المهام</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-sm font-medium hover:bg-coral-500 hover:text-white transition-colors cursor-pointer" data-translate="soft-s3">المرونة وسرعة التكيف</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education & Core courses Timeline Column -->
+                <div class="lg:col-span-6 space-y-6">
+                    <h3 class="text-2xl font-extrabold" data-translate="edu-header">التعليم والتدريب الأكاديمي</h3>
+                    
+                    <!-- Timeline container -->
+                    <div class="relative border-r dark:border-l-0 dark:border-r border-slate-200 dark:border-slate-800 pr-6 space-y-8" id="eduTimeline">
+                        <!-- Education Card -->
+                        <div class="relative">
+                            <!-- Bullet -->
+                            <span class="absolute -right-9 top-1.5 w-6 h-6 rounded-full bg-coral-500 border-4 border-white dark:border-slate-900 flex items-center justify-center"></span>
+                            
+                            <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80">
+                                <span class="text-xs font-bold text-coral-500" data-translate="edu-years">2023 - 2028 (متوقع تخرجي)</span>
+                                <h4 class="text-lg font-bold mt-1" data-translate="edu-degree">بكالوريوس هندسة الحاسبات والأنظمة</h4>
+                                <p class="text-sm text-slate-500 dark:text-slate-400" data-translate="edu-inst">جامعة الزقازيق، كلية الهندسة — الشرقية، مصر</p>
+                                
+                                <p class="text-sm text-slate-600 dark:text-slate-400 mt-4 leading-relaxed" data-translate="edu-desc">
+                                    نجحت في إتمام أكثر من 10 مواد فنية وتخصصية محورية تشمل البرمجة المتقدمة، وإدارة قواعد البيانات، وبنى البيانات وتصميم وتحليل الخوارزميات، ومبادئ هندسة النظم وتصميم الدوائر المنطقية والمعالجات الدقيقة.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Language Certifications Card -->
+                        <div class="relative">
+                            <!-- Bullet -->
+                            <span class="absolute -right-9 top-1.5 w-6 h-6 rounded-full bg-amber-500 border-4 border-white dark:border-slate-900 flex items-center justify-center"></span>
+                            
+                            <div class="bg-slate-50 dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80">
+                                <h4 class="text-lg font-bold" data-translate="lang-heading">إتقان اللغات</h4>
+                                <div class="grid grid-cols-2 gap-4 mt-3">
+                                    <div class="space-y-1">
+                                        <p class="text-xs text-slate-400 dark:text-slate-500" data-translate="lang-ar-label">العربية (اللغة الأم)</p>
+                                        <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                            <div class="bg-coral-500 h-full w-full rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <p class="text-xs text-slate-400 dark:text-slate-500" data-translate="lang-en-label">الإنجليزية (قراءة وكتابة ممتازة)</p>
+                                        <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                            <div class="bg-amber-500 h-full w-[85%] rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL EXCELLENCE MATRIX -->
+    <section id="skills" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <h2 class="text-3xl sm:text-4xl font-black bg-gradient-to-r from-coral-500 to-amber-500 bg-clip-text text-transparent inline-block" data-translate="skills-title">
+                    مصفوفة التفوق التقني
+                </h2>
+                <div class="h-1.5 w-16 bg-coral-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 dark:text-slate-400" data-translate="skills-subtitle">
+                    خريطة المهارات والأدوات والتقنيات التي أتقنها وأطبقها بفعالية
+                </p>
+            </div>
+
+            <!-- Skills Category Buttons Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10" id="skillsTabs">
+                <button onclick="filterSkills('all')" class="skill-tab active px-5 py-2.5 rounded-xl font-bold text-sm bg-coral-500 text-white shadow-md transition-all">الكل</button>
+                <button onclick="filterSkills('languages')" class="skill-tab px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">لغات البرمجة</button>
+                <button onclick="filterSkills('data')" class="skill-tab px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">قواعد البيانات وهندسة البيانات</button>
+                <button onclick="filterSkills('tools')" class="skill-tab px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">الأدوات والبيئة البرمجية</button>
+                <button onclick="filterSkills('concepts')" class="skill-tab px-5 py-2.5 rounded-xl font-bold text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">المفاهيم الهندسية الأساسية</button>
+            </div>
+
+            <!-- Skills Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="skillsGrid">
+                <!-- Python Card -->
+                <div class="skill-card bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all" data-category="languages">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center text-2xl">
+                            <i class="fa-brands fa-python"></i>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300" data-translate="skill-expert">متقدم</span>
+                    </div>
+                    <h3 class="font-extrabold text-lg">Python</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-translate="skill-py-desc">تطوير خوارزميات، البرمجة كائنية التوجه (OOP)، بناء الهياكل البرمجية، وتحليل البيانات.</p>
+                </div>
+
+                <!-- SQL Card -->
+                <div class="skill-card bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all" data-category="languages data">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300" data-translate="skill-expert">متقدم</span>
+                    </div>
+                    <h3 class="font-extrabold text-lg">SQL (T-SQL / PL-SQL)</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-translate="skill-sql-desc">تطوير الاستعلامات المعقدة، كتابة الإجراءات المخزنة، تحسين الأداء وإعداد الفهارس والمخططات.</p>
+                </div>
+
+                <!-- C/C++ Card -->
+                <div class="skill-card bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all" data-category="languages">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-violet-500/10 text-violet-500 flex items-center justify-center text-2xl">
+                            <span class="font-black text-lg">C</span>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300" data-translate="skill-mid">متوسط</span>
+                    </div>
+                    <h3 class="font-extrabold text-lg">C Programming</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-translate="skill-c-desc">البرمجة الإجرائية، وإدارة الذاكرة يدوياً، وبرمجة الأنظمة منخفضة المستوى والمندمجة.</p>
+                </div>
+
+                <!-- Database Design Card -->
+                <div class="skill-card bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all" data-category="data">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-diagram-project"></i>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300" data-translate="skill-expert">متقدم</span>
+                    </div>
+                    <h3 class="font-extrabold text-lg" data-translate="skill-dbd-title">تصميم ونمذجة قواعد البيانات</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-translate="skill-dbd-desc">إعداد المخططات الهيكلية (Entity-Relationship Diagrams)، والتطبيع (Normalization) لحفظ سلامة البيانات.</p>
+                </div>
+
+                <!-- Data Pipelines & ETL Card -->
+                <div class="skill-card bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all" data-category="data">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-filter"></i>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300" data-translate="skill-mid">متوسط</span>
+                    </div>
+                    <h3 class="font-extrabold text-lg" data-translate="skill-etl-title">هندسة ومعالجة البيانات (ETL)</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-translate="skill-etl-desc">تطوير تدفقات البيانات، وعمليات استخلاص، تحويل، وتجميع البيانات للتخزين والتحليل.</p>
+                </div>
+
+                <!-- Git & CLI Card -->
+                <div class="skill-card bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all" data-category="tools">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center text-2xl">
+                            <i class="fa-brands fa-git-alt"></i>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-100 dark:bg-orange-950 text-orange-700 dark:text-orange-300" data-translate="skill-expert">متقدم</span>
+                    </div>
+                    <h3 class="font-extrabold text-lg">Git / GitHub & CLI</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-translate="skill-git-desc">التحكم في الإصدارات، والعمل من خلال واجهة سطر الأوامر (Command Line) وإدارة الموديلات البرمجية.</p>
+                </div>
+
+                <!-- DSA Card -->
+                <div class="skill-card bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all" data-category="concepts">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300" data-translate="skill-expert">متقدم</span>
+                    </div>
+                    <h3 class="font-extrabold text-lg" data-translate="skill-dsa-title">بنى البيانات والخوارزميات</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-translate="skill-dsa-desc">تحليل تعقيد الخوارزميات (Big O)، وتحسين أداء الأكواد، وبناء الهياكل المعقدة.</p>
+                </div>
+
+                <!-- OOP Card -->
+                <div class="skill-card bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all" data-category="concepts">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-500 flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-teal-100 dark:bg-teal-950 text-teal-700 dark:text-teal-300" data-translate="skill-expert">متقدم</span>
+                    </div>
+                    <h3 class="font-extrabold text-lg" data-translate="skill-oop-title">البرمجة كائنية التوجه (OOP)</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-translate="skill-oop-desc">تطبيق مبادئ الكبسولة، الوراثة، وتعدد الأشكال لتوليد برمجيات نظيفة وقابلة للتطوير.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENGINEERING PROJECTS -->
+    <section id="projects" class="py-24 bg-white dark:bg-slate-900 border-t border-b border-slate-200 dark:border-slate-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <h2 class="text-3xl sm:text-4xl font-black bg-gradient-to-r from-coral-500 to-amber-500 bg-clip-text text-transparent inline-block" data-translate="projects-title">
+                    المشاريع الهندسية
+                </h2>
+                <div class="h-1.5 w-16 bg-coral-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 dark:text-slate-400" data-translate="projects-subtitle">
+                    نماذج من برمجيات وأنظمة قمت بابتكارها وتنفيذها بشكل متكامل
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Project 1: Library Management System -->
+                <div class="bg-slate-50 dark:bg-slate-950 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-lg overflow-hidden flex flex-col hover:border-coral-500/50 transition-all group">
+                    <div class="p-6 sm:p-8 flex-1 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-lg bg-coral-100 dark:bg-coral-950/50 text-coral-600 dark:text-coral-400 text-xs font-extrabold" data-translate="proj1-tag">نظام إدارة متكامل</span>
+                            <div class="flex gap-2">
+                                <span class="text-slate-400"><i class="fa-brands fa-python text-lg"></i></span>
+                                <span class="text-slate-400"><i class="fa-brands fa-java text-lg"></i></span>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-extrabold group-hover:text-coral-500 transition-colors" data-translate="proj1-title">نظام إدارة المكتبات الذكي</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed" data-translate="proj1-desc">
+                            نظام متكامل لإدارة الكتب والمستعيرين مبرمج ومصمم كلياً وفقاً لمفاهيم البرمجة كائنية التوجّه (OOP)، يوفر واجهة تحكم مرنة بثلاثة أدوار وظيفية مختلفة ومترابطة.
+                        </p>
+
+                        <ul class="space-y-2 pt-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-coral-500 mt-1"></i>
+                                <span data-translate="proj1-point1">بناء واجهة برمجية بثلاثة أدوار صلاحيات كاملة: مدير، أمين مكتبة، مستعير.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-coral-500 mt-1"></i>
+                                <span data-translate="proj1-point2">تصميم وهيكلة 10+ وحدات برمجية منفصلة لإدارة الفهرس والمعاملات.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-coral-500 mt-1"></i>
+                                <span data-translate="proj1-point3">تنظيم العلاقات والتسجيل البرمجي لتقليل زمن الاستدعاء بنسبة 40%.</span>
+                            </li>
+                        </ul>
+
+                        <div class="flex flex-wrap gap-2 pt-4">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-200 dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300">Python / Java</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-200 dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300">OOP Design</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-200 dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300">Software Architecture</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: High Performance Unit Converter -->
+                <div class="bg-slate-50 dark:bg-slate-950 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-lg overflow-hidden flex flex-col hover:border-coral-500/50 transition-all group">
+                    <div class="p-6 sm:p-8 flex-1 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-lg bg-coral-100 dark:bg-coral-950/50 text-coral-600 dark:text-coral-400 text-xs font-extrabold" data-translate="proj2-tag">أداة خوارزمية</span>
+                            <div class="flex gap-2">
+                                <span class="text-slate-400"><i class="fa-solid fa-code text-lg"></i></span>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-extrabold group-hover:text-coral-500 transition-colors" data-translate="proj2-title">محول المقاييس فائق الأداء</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed" data-translate="proj2-desc">
+                            أداة تحويل قياسات ووحدات رياضية وفيزيائية معقدة مبنية بلغة C، تعتمد على الحساب الرياضي السريع والمباشر وخالية من الأخطاء التشغيلية تماماً.
+                        </p>
+
+                        <ul class="space-y-2 pt-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-coral-500 mt-1"></i>
+                                <span data-translate="proj2-point1">دعم متكامل لـ 6 فئات رئيسية للتحويل المباشر.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-coral-500 mt-1"></i>
+                                <span data-translate="proj2-point2">تحسين العمليات الحسابية داخل الذاكرة لتقليل زمن الاستجابة لمستوى قياسي.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-coral-500 mt-1"></i>
+                                <span data-translate="proj2-point3">بناء واختبار الكود البرمجي بأكثر من 20 حالة فحص دقيقة لضمان استقرار العمل.</span>
+                            </li>
+                        </ul>
+
+                        <div class="flex flex-wrap gap-2 pt-4">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-200 dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300">C Language</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-200 dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300">Algorithms</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-200 dark:bg-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-300">Procedural Memory</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE TERMINAL SIMULATOR -->
+    <section id="terminal" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <h2 class="text-3xl sm:text-4xl font-black bg-gradient-to-r from-coral-500 to-amber-500 bg-clip-text text-transparent inline-block" data-translate="term-title">
+                    موجه الأوامر التفاعلي
+                </h2>
+                <div class="h-1.5 w-16 bg-coral-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 dark:text-slate-400" data-translate="term-subtitle">
+                    جرب بنفسك لوحة التحكم وتواصل برمجياً مع سيرة محمد ياسر الذاتية
+                </p>
+            </div>
+
+            <!-- Terminal Box Container -->
+            <div class="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-200 text-sm font-mono flex flex-col h-[480px]">
+                <!-- Header of terminal window -->
+                <div class="bg-slate-950 px-4 py-3 flex items-center justify-between border-b border-slate-800 select-none">
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3.5 h-3.5 rounded-full bg-red-500 hover:bg-red-600 inline-block cursor-pointer"></span>
+                        <span class="w-3.5 h-3.5 rounded-full bg-amber-500 hover:bg-amber-600 inline-block cursor-pointer"></span>
+                        <span class="w-3.5 h-3.5 rounded-full bg-green-500 hover:bg-green-600 inline-block cursor-pointer"></span>
+                    </div>
+                    <span class="text-xs text-slate-500 tracking-wider">mohamed-yasser-bash — v1.0</span>
+                    <i class="fa-solid fa-terminal text-slate-600"></i>
+                </div>
+
+                <!-- Screen Area -->
+                <div id="terminalScreen" class="flex-1 p-5 overflow-y-auto space-y-4 text-left rtl:text-right" dir="ltr">
+                    <div>
+                        <p class="text-emerald-400 font-bold">Welcome to Mohamed's Engineer Terminal v1.0.0</p>
+                        <p class="text-slate-400 text-xs">Type <span class="text-coral-400 font-extrabold font-mono">'help'</span> to explore dynamic engineering system actions or <span class="text-coral-400 font-extrabold font-mono">'cat resume.json'</span>.</p>
+                    </div>
+                    
+                    <div id="terminalLogs" class="space-y-3">
+                        <!-- Command outputs will dynamic render here -->
+                    </div>
+                </div>
+
+                <!-- Command input bar -->
+                <div class="bg-slate-950 p-3.5 flex items-center gap-2 border-t border-slate-800" dir="ltr">
+                    <span class="text-coral-500 font-bold select-none flex items-center gap-1 shrink-0">
+                        <span>mohamed_yasser</span>
+                        <span class="text-slate-500">@</span>
+                        <span class="text-amber-500">zagazig-uni</span>
+                        <span class="text-slate-400 font-bold font-mono">$</span>
+                    </span>
+                    <input type="text" id="terminalInput" class="bg-transparent text-slate-100 outline-none flex-1 border-none focus:ring-0 p-0 font-mono" placeholder="Type command here..." autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <h2 class="text-3xl sm:text-4xl font-black bg-gradient-to-r from-coral-500 to-amber-500 bg-clip-text text-transparent inline-block" data-translate="contact-title">
+                    تواصل معي وباشر العمل
+                </h2>
+                <div class="h-1.5 w-16 bg-coral-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 dark:text-slate-400" data-translate="contact-subtitle">
+                    سأكون سعيداً بالرد على رسالتك ومناقشة عروض العمل أو التعاون البرمجي
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-5xl mx-auto items-stretch">
+                <!-- Info cards column (Grid: 5 col) -->
+                <div class="lg:col-span-5 flex flex-col justify-between gap-6">
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-black text-slate-800 dark:text-slate-200" data-translate="contact-info-head">معلومات التواصل الفوري</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed" data-translate="contact-info-desc">
+                            أنا مستعد للإنضمام إلى شركتك أو فريقك البرمجي، لا تتردد في الاتصال بي للحصول على تفاصيل إضافية.
+                        </p>
+                    </div>
+
+                    <!-- Contact Details list -->
+                    <div class="space-y-4 my-6">
+                        <!-- Direct Email -->
+                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/80 hover:border-coral-500 transition-colors">
+                            <div class="w-12 h-12 rounded-xl bg-coral-500/10 flex items-center justify-center text-coral-500 text-xl">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs text-slate-400 dark:text-slate-500" data-translate="c-mail-label">البريد الإلكتروني المباشر</h4>
+                                <a href="mailto:M01283848839@gmail.com" class="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-coral-500 transition-colors">M01283848839@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/80 hover:border-coral-500 transition-colors">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 text-xl">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs text-slate-400 dark:text-slate-500" data-translate="c-phone-label">الهاتف والواتس آب</h4>
+                                <a href="tel:+201283848839" class="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-coral-500 transition-colors">+20 1283848839</a>
+                            </div>
+                        </div>
+
+                        <!-- LinkedIn Direct -->
+                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800/80 hover:border-coral-500 transition-colors">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 text-xl">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs text-slate-400 dark:text-slate-500" data-translate="c-link-label">الملف المهني</h4>
+                                <a href="https://linkedin.com/in/mohamed-eldk-224725254" target="_blank" class="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-coral-500 transition-colors">mohamed-eldk-224725254</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Micro alert system note inside sidebar -->
+                    <div class="p-4 rounded-2xl bg-coral-50 dark:bg-coral-950/20 border border-coral-200 dark:border-coral-900/40 text-xs text-coral-700 dark:text-coral-400 flex items-start gap-2">
+                        <i class="fa-solid fa-circle-info mt-0.5 shrink-0 text-sm"></i>
+                        <span data-translate="c-disclaimer">يتم مراجعة الرسائل والمقترحات والرد عليها خلال أقل من 24 ساعة من تاريخ الإرسال.</span>
+                    </div>
+                </div>
+
+                <!-- Form Column (Grid: 7 col) -->
+                <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-950 p-6 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800">
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-1">
+                                <label for="form_name" class="block text-sm font-bold text-slate-600 dark:text-slate-400" data-translate="f-name">الاسم الكريم</label>
+                                <input type="text" id="form_name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 outline-none focus:ring-2 focus:ring-coral-500 transition-all text-sm">
+                            </div>
+                            <div class="space-y-1">
+                                <label for="form_email" class="block text-sm font-bold text-slate-600 dark:text-slate-400" data-translate="f-email">عنوان البريد</label>
+                                <input type="email" id="form_email" required class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 outline-none focus:ring-2 focus:ring-coral-500 transition-all text-sm">
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label for="form_subject" class="block text-sm font-bold text-slate-600 dark:text-slate-400" data-translate="f-subject">موضوع التواصل</label>
+                            <input type="text" id="form_subject" required class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 outline-none focus:ring-2 focus:ring-coral-500 transition-all text-sm">
+                        </div>
+
+                        <div class="space-y-1">
+                            <label for="form_message" class="block text-sm font-bold text-slate-600 dark:text-slate-400" data-translate="f-msg">مضمون الرسالة</label>
+                            <textarea id="form_message" rows="5" required class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 outline-none focus:ring-2 focus:ring-coral-500 transition-all text-sm resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 px-6 rounded-xl bg-coral-500 hover:bg-coral-600 text-white font-extrabold shadow-lg shadow-coral-500/20 hover:shadow-coral-500/30 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span data-translate="f-submit">إرسال الرسالة الآن</span>
+                        </button>
+                    </form>
+
+                    <!-- Embedded custom modern toast-container for validation state/feedback (never alert()) -->
+                    <div id="formFeedback" class="hidden mt-6 p-4 rounded-2xl flex items-center gap-3 transition-all duration-300">
+                        <div id="feedbackIcon" class="w-8 h-8 rounded-full flex items-center justify-center text-white shrink-0"></div>
+                        <p id="feedbackText" class="text-sm font-extrabold"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-12 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Brand logo representation -->
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-coral-500 flex items-center justify-center text-white font-bold text-sm">
+                        MY
+                    </div>
+                    <span class="font-bold text-lg text-slate-800 dark:text-white">محمد ياسر</span>
+                </div>
+
+                <!-- Copyright -->
+                <p class="text-sm text-slate-500 dark:text-slate-400" id="footerCopyright">
+                    جميع الحقوق محفوظة © 2026 محمد ياسر عبد العزيز.
+                </p>
+
+                <!-- Social navigation anchors -->
+                <div class="flex items-center gap-4">
+                    <a href="https://linkedin.com/in/mohamed-eldk-224725254" target="_blank" class="w-10 h-10 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-coral-500 transition-colors">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="mailto:M01283848839@gmail.com" class="w-10 h-10 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-coral-500 transition-colors">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                    <a href="tel:+201283848839" class="w-10 h-10 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-coral-500 transition-colors">
+                        <i class="fa-solid fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* Interactive Dual Language Data object mapping key UI areas */
+        const translations = {
+            ar: {
+                "nav-about": "عنّي",
+                "nav-skills": "المهارات",
+                "nav-projects": "المشاريع",
+                "nav-terminal": "لوحة التحكم",
+                "nav-contact": "اتصل بي",
+                "btn-hire": "توظيفي",
+                "hero-badge": "متاح لفرص العمل والتدريب الفوري",
+                "hero-welcome": "مرحباً، أنا",
+                "hero-desc": "طالب هندسة حاسبات ونظم شغوف في جامعة الزقازيق. أجمع بين الدراسة الأكاديمية العميقة والخبرة العملية في هندسة البرمجيات وبناء قواعد البيانات وهيكلة خطوط معالجة البيانات (Data Pipelines).",
+                "hero-btn-contact": "تواصل معي الآن",
+                "hero-btn-projects": "رؤية المشاريع",
+                "location-text": "الشرقية، مصر",
+                "mini-card-sub": "جامعة الزقازيق",
+                "mini-card-title": "هندسة حاسبات ونظم",
+                "about-title": "عنّي وتأهيلي الأكاديمي",
+                "about-subtitle": "تفاصيل مساري الهندسي الأكاديمي والمهني",
+                "about-header": "نبذة عامة وتطلعات",
+                "about-p1": "أنا مهندس أنظمة وحاسبات واعد، أسعى لتوظيف مهاراتي في تطوير برمجيات عالية الجودة وتحليل الأنظمة وحل المشكلات المعقدة. امتلك دافعاً قوياً للتعلم المستمر واكتساب مهارات وأدوات تقنية جديدة للمساهمة بفاعلية في دفع نمو المشاريع الابتكارية.",
+                "about-p2": "قمت بدراسة وتطبيق مفاهيم ممتازة في صياغة وهيكلة قواعد البيانات العلائقية (RDBMS)، وضبط استعلامات SQL، وهيكلة كود ميكانيكي نظيف وقابل للتوسعة باستخدام Python وجافا بالاعتماد على أسس البرمجة الكائنية التوجه (OOP).",
+                "soft-skills-title": "المهارات الشخصية والقيادية:",
+                "soft-s1": "التفكير التحليلي وحل المشكلات",
+                "soft-s2": "العمل الجماعي وتوزيع المهام",
+                "soft-s3": "المرونة وسرعة التكيف",
+                "edu-header": "التعليم والتدريب الأكاديمي",
+                "edu-years": "2023 - 2028 (متوقع تخرجي)",
+                "edu-degree": "بكالوريوس هندسة الحاسبات والأنظمة",
+                "edu-inst": "جامعة الزقازيق، كلية الهندسة — الشرقية، مصر",
+                "edu-desc": "نجحت في إتمام أكثر من 10 مواد فنية وتخصصية محورية تشمل البرمجة المتقدمة، وإدارة قواعد البيانات، وبنى البيانات وتصميم وتحليل الخوارزميات، ومبادئ هندسة النظم وتصميم الدوائر المنطقية والمعالجات الدقيقة.",
+                "lang-heading": "إتقان اللغات",
+                "lang-ar-label": "العربية (اللغة الأم)",
+                "lang-en-label": "الإنجليزية (قراءة وكتابة ممتازة)",
+                "skills-title": "مصفوفة التفوق التقني",
+                "skills-subtitle": "خريطة المهارات والأدوات والتقنيات التي أتقنها وأطبقها بفعالية",
+                "skill-expert": "متقدم",
+                "skill-mid": "متوسط",
+                "skill-py-desc": "تطوير خوارزميات، البرمجة كائنية التوجه (OOP)، بناء الهياكل البرمجية، وتحليل البيانات.",
+                "skill-sql-desc": "تطوير الاستعلامات المعقدة، كتابة الإجراءات المخزنة، تحسين الأداء وإعداد الفهارس والمخططات.",
+                "skill-c-desc": "البرمجة الإجرائية، وإدارة الذاكرة يدوياً، وبرمجة الأنظمة منخفضة المستوى والمندمجة.",
+                "skill-dbd-title": "تصميم ونمذجة قواعد البيانات",
+                "skill-dbd-desc": "إعداد المخططات الهيكلية (Entity-Relationship Diagrams)، والتطبيع (Normalization) لحفظ سلامة البيانات.",
+                "skill-etl-title": "هندسة ومعالجة البيانات (ETL)",
+                "skill-etl-desc": "تطوير تدفقات البيانات، وعمليات استخلاص، تحويل، وتجميع البيانات للتخزين والتحليل.",
+                "skill-git-desc": "التحكم في الإصدارات، والعمل من خلال واجهة سطر الأوامر (Command Line) وإدارة الموديلات البرمجية.",
+                "skill-dsa-title": "بنى البيانات والخوارزميات",
+                "skill-dsa-desc": "تحليل تعقيد الخوارزميات (Big O)، وتحسين أداء الأكواد، وبناء الهياكل المعقدة.",
+                "skill-oop-title": "البرمجة كائنية التوجه (OOP)",
+                "skill-oop-desc": "تطبيق مبادئ الكبسولة، الوراثة، وتعدد الأشكال لتوليد برمجيات نظيفة وقابلة للتطوير.",
+                "projects-title": "المشاريع الهندسية",
+                "projects-subtitle": "نماذج من برمجيات وأنظمة قمت بابتكارها وتنفيذها بشكل متكامل",
+                "proj1-tag": "نظام إدارة متكامل",
+                "proj1-title": "نظام إدارة المكتبات الذكي",
+                "proj1-desc": "نظام متكامل لإدارة الكتب والمستعيرين مبرمج ومصمم كلياً وفقاً لمفاهيم البرمجة كائنية التوجّه (OOP)، يوفر واجهة تحكم مرنة بثلاثة أدوار وظيفية مختلفة ومترابطة.",
+                "proj1-point1": "بناء واجهة برمجية بثلاثة أدوار صلاحيات كاملة: مدير، أمين مكتبة، مستعير.",
+                "proj1-point2": "تصميم وهيكلة 10+ وحدات برمجية منفصلة لإدارة الفهرس والمعاملات.",
+                "proj1-point3": "تنظيم العلاقات والتسجيل البرمجي لتقليل زمن الاستدعاء بنسبة 40%.",
+                "proj2-tag": "أداة خوارزمية",
+                "proj2-title": "محول المقاييس فائق الأداء",
+                "proj2-desc": "أداة تحويل قياسات ووحدات رياضية وفيزيائية معقدة مبنية بلغة C، تعتمد على الحساب الرياضي السريع والمباشر وخالية من الأخطاء التشغيلية تماماً.",
+                "proj2-point1": "دعم متكامل لـ 6 فئات رئيسية للتحويل المباشر.",
+                "proj2-point2": "تحسين العمليات الحسابية داخل الذاكرة لتقليل زمن الاستجابة لمستوى قياسي.",
+                "proj2-point3": "بناء واختبار الكود البرمجي بأكثر من 20 حالة فحص دقيقة لضمان استقرار العمل.",
+                "term-title": "موجه الأوامر التفاعلي",
+                "term-subtitle": "جرب بنفسك لوحة التحكم وتواصل برمجياً مع سيرة محمد ياسر الذاتية",
+                "contact-title": "تواصل معي وباشر العمل",
+                "contact-subtitle": "سأكون سعيداً بالرد على رسالتك ومناقشة عروض العمل أو التعاون البرمجي",
+                "contact-info-head": "معلومات التواصل الفوري",
+                "contact-info-desc": "أنا مستعد للإنضمام إلى شركتك أو فريقك البرمجي، لا تتردد في الاتصال بي للحصول على تفاصيل إضافية.",
+                "c-mail-label": "البريد الإلكتروني المباشر",
+                "c-phone-label": "الهاتف والواتس آب",
+                "c-link-label": "الملف المهني",
+                "c-disclaimer": "يتم مراجعة الرسائل والمقترحات والرد عليها خلال أقل من 24 ساعة من تاريخ الإرسال.",
+                "f-name": "الاسم الكريم",
+                "f-email": "عنوان البريد",
+                "f-subject": "موضوع التواصل",
+                "f-msg": "مضمون الرسالة",
+                "f-submit": "إرسال الرسالة الآن",
+                "copy-success": "تم نسخ الرابط للمحافظة!",
+                "form-success": "تم إرسال رسالتك بنجاح! سأتواصل معك قريباً جداً.",
+                "form-error": "الرجاء تعبئة كافة الحقول بشكل صحيح.",
+                "copyright": "جميع الحقوق محفوظة © 2026 محمد ياسر عبد العزيز."
+            },
+            en: {
+                "nav-about": "About",
+                "nav-skills": "Skills",
+                "nav-projects": "Projects",
+                "nav-terminal": "Terminal",
+                "nav-contact": "Contact",
+                "btn-hire": "Hire Me",
+                "hero-badge": "Available for Opportunities & Internships",
+                "hero-welcome": "Hello, I am",
+                "hero-desc": "Detail-oriented Computer and Systems Engineering student at Zagazig University. I combine rigorous technical training with practical experience in building efficient software frameworks, relational databases, and secure ETL pipelines.",
+                "hero-btn-contact": "Contact Me",
+                "hero-btn-projects": "View Projects",
+                "location-text": "Sharkia, Egypt",
+                "mini-card-sub": "Zagazig University",
+                "mini-card-title": "Computer & Systems Eng.",
+                "about-title": "About & Education Journey",
+                "about-subtitle": "Deep academic alignment & technical foundations",
+                "about-header": "Professional Summary",
+                "about-p1": "I am a proactive Computer and Systems Engineering student passionate about crafting clean code, designing optimized relational databases, and establishing robust systems architectures. Ready to inject technical agility and solve software bottlenecks in dynamic teams.",
+                "about-p2": "Equipped with strong technical understanding of Object-Oriented methodologies, advanced algorithm optimizations (DSA), transaction lifecycle flow, and high-quality schema design.",
+                "soft-skills-title": "Core Soft Skills:",
+                "soft-s1": "Analytical & Problem Solving",
+                "soft-s2": "Team Synchronization",
+                "soft-s3": "Agility & Adaptation",
+                "edu-header": "Education Timeline",
+                "edu-years": "2023 - 2028 (Expected)",
+                "edu-degree": "Bachelor of Computer & Systems Engineering",
+                "edu-inst": "Zagazig University, Faculty of Engineering - Egypt",
+                "edu-desc": "Completed 10+ core structural engineering modules including Relational Database Systems, Analysis of Algorithms, OOP, Procedural Architecture, and Digital Circuits.",
+                "lang-heading": "Languages Mastery",
+                "lang-ar-label": "Arabic (Native)",
+                "lang-en-label": "English (Very Good)",
+                "skills-title": "Technical Excellence Matrix",
+                "skills-subtitle": "My verified programming tools, frameworks and architectural domains",
+                "skill-expert": "Advanced",
+                "skill-mid": "Intermediate",
+                "skill-py-desc": "OOP patterns, data parsing, modular backend structuring, and algorithm design.",
+                "skill-sql-desc": "Relational schema modeling, index optimization, complex procedural query design, and tuning.",
+                "skill-c-desc": "Procedural workflows, memory-aware development, structural logic tuning.",
+                "skill-dbd-title": "Database Schema Design",
+                "skill-dbd-desc": "Building structural Entity-Relationship Diagrams and executing strict schema normalization.",
+                "skill-etl-title": "ETL & Data Engineering",
+                "skill-etl-desc": "Developing workflows to extract, clean, and pipe data structures smoothly.",
+                "skill-git-desc": "Version control branching, standard collaboration workflows, CLI automation.",
+                "skill-dsa-title": "Data Structures & Algorithms",
+                "skill-dsa-desc": "Analyzing Big O time/space complexities, structuring memory containers, optimizing loops.",
+                "skill-oop-title": "Object-Oriented Programming",
+                "skill-oop-desc": "Enforcing encapsulation, interfaces, and decoupling rules to scale system blocks easily.",
+                "projects-title": "Engineering Projects",
+                "projects-subtitle": "Showcasing structural software implementations and mathematical utilities",
+                "proj1-tag": "Enterprise System",
+                "proj1-title": "Smart Library Management System",
+                "proj1-desc": "An enterprise-pattern console software modeled utilizing high-level object encapsulation rules, structuring multi-tier user pathways.",
+                "proj1-point1": "Engineered 3 user roles: Administrator, Librarian, and Borrower.",
+                "proj1-point2": "Structured 10+ modular components handling inventory logic, transaction indexing, and returning logs.",
+                "proj1-point3": "Refactored code dependency reducing architectural complexity by 40%.",
+                "proj2-tag": "Mathematical Tool",
+                "proj2-title": "High-Performance Unit Converter",
+                "proj2-desc": "An algorithmic console framework developed natively in clean C, supporting high-fidelity mathematical conversion matrices.",
+                "proj2-point1": "Optimized conversion equations spanning across 6 dimensional disciplines.",
+                "proj2-point2": "Managed procedural pointers, minimizing execution cycle memory overhead.",
+                "proj2-point3": "Conducted 20+ test pipelines to eliminate potential runtime execution bugs.",
+                "term-title": "Command Terminal Simulator",
+                "term-subtitle": "Explore my records dynamically by writing classic developer terminal prompts",
+                "contact-title": "Let's Align & Build Together",
+                "contact-subtitle": "Drop me a message to consult project scopes, junior opportunities, or technical internships",
+                "contact-info-head": "Immediate Pathways",
+                "contact-info-desc": "Open for systems positions, database development, and backend software engineer roles.",
+                "c-mail-label": "Direct Email",
+                "c-phone-label": "Phone & WhatsApp",
+                "c-link-label": "Professional Network",
+                "c-disclaimer": "Messages are delivered immediately. I strive to get back within 24 operational hours.",
+                "f-name": "Your Name",
+                "f-email": "Email Address",
+                "f-subject": "Subject",
+                "f-msg": "Your Message",
+                "f-submit": "Transmit Message",
+                "copy-success": "Link copied to clipboard successfully!",
+                "form-success": "Your transmission was successful! I will get in touch shortly.",
+                "form-error": "Please inspect your submission and fill all required areas properly.",
+                "copyright": "All Rights Reserved © 2026 Mohamed Yasser Abd Elaziz."
+            }
+        };
+
+        let currentLang = 'ar';
+
+        /* Language Toggle Trigger Event */
+        document.getElementById('langToggle').addEventListener('click', () => {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            applyTranslations();
+        });
+
+        function applyTranslations() {
+            const dictionary = translations[currentLang];
+            
+            // Apply text translations to elements with data-translate attribute
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (dictionary[key]) {
+                    element.innerHTML = dictionary[key];
+                }
+            });
+
+            // Handle Input/Textarea Placeholders
+            if (currentLang === 'en') {
+                document.getElementById('form_name').placeholder = "Enter your full name";
+                document.getElementById('form_email').placeholder = "name@domain.com";
+                document.getElementById('form_subject').placeholder = "How can I help you?";
+                document.getElementById('form_message').placeholder = "Provide details regarding your request...";
+                document.getElementById('langLabel').textContent = "العربية";
+                document.getElementById('footerCopyright').textContent = dictionary['copyright'];
+                
+                // Toggle RTL to LTR structures
+                document.documentElement.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('lang', 'en');
+                
+                // Adjust timeline spacing
+                document.getElementById('eduTimeline').classList.remove('pr-6', 'border-r');
+                document.getElementById('eduTimeline').classList.add('pl-6', 'border-l');
+                
+                // Swap layout of hero text to follow standard LTR
+                document.getElementById('heroTextContainer').classList.remove('lg:text-right');
+                document.getElementById('heroTextContainer').classList.add('lg:text-left');
+                
+                document.querySelectorAll('.skill-card').forEach(c => c.classList.add('text-left'));
+            } else {
+                document.getElementById('form_name').placeholder = "";
+                document.getElementById('form_email').placeholder = "";
+                document.getElementById('form_subject').placeholder = "";
+                document.getElementById('form_message').placeholder = "";
+                document.getElementById('langLabel').textContent = "English";
+                document.getElementById('footerCopyright').textContent = dictionary['copyright'];
+                
+                // Toggle LTR back to RTL
+                document.documentElement.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('lang', 'ar');
+                
+                // Revert timeline spacing
+                document.getElementById('eduTimeline').classList.remove('pl-6', 'border-l');
+                document.getElementById('eduTimeline').classList.add('pr-6', 'border-r');
+                
+                // Restore original RTL hero layout alignment
+                document.getElementById('heroTextContainer').classList.add('lg:text-right');
+                document.getElementById('heroTextContainer').classList.remove('lg:text-left');
+                
+                document.querySelectorAll('.skill-card').forEach(c => c.classList.remove('text-left'));
+            }
+            
+            // Re-render Dynamic Typing profession with updated language arrays
+            startTypewriterEffect();
+        }
+
+        /* Fallback avatar generator in case local image isn't configured yet */
+        function loadFallbackAvatar(imgElement) {
+            // Using a high-quality SVG placeholder dynamically drawn to avoid breaking the design
+            imgElement.onerror = null; // Prevent looping
+            imgElement.src = "https://placehold.co/600x600/f05a30/ffffff?text=MY";
+        }
+
+        /* Theme Toggle Trigger logic (Dark/Light Mode) */
+        const themeToggleBtn = document.getElementById('themeToggle');
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // Initialize theme preferences on mount
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        /* Mobile Nav Toggle menu */
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile nav when link is clicked
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        /* Dynamic Typing Script (Typewriter) */
+        let typewriterInstance = null;
+        const professions = {
+            ar: [
+                "مهندس حاسبات ونظم متميز",
+                "مطور بايثون ومحلل خوارزميات",
+                "مهتم بهندسة وتكامل البيانات",
+                "جامعة الزقازيق - هندسة الزقازيق"
+            ],
+            en: [
+                "Computer & Systems Engineer",
+                "Python Developer & Algorithm Specialist",
+                "Data & RDBMS Engineer Enthusiast",
+                "Zagazig University Student"
+            ]
+        };
+
+        let currentTypingIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingTimeout = null;
+
+        function startTypewriterEffect() {
+            if (typingTimeout) clearTimeout(typingTimeout);
+            charIndex = 0;
+            isDeleting = false;
+            typeWriter();
+        }
+
+        function typeWriter() {
+            const textArray = professions[currentLang];
+            const currentString = textArray[currentTypingIndex];
+            const displayEl = document.getElementById('dynamicProfession');
+            
+            if (!displayEl) return;
+
+            if (isDeleting) {
+                displayEl.textContent = currentString.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                displayEl.textContent = currentString.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let speed = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIndex === currentString.length) {
+                speed = 2200; // Hold full text before deleting
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                currentTypingIndex = (currentTypingIndex + 1) % textArray.length;
+                speed = 500; // Gap before typing next phrase
+            }
+
+            typingTimeout = setTimeout(typeWriter, speed);
+        }
+
+        /* Dynamic Skill category filtering logic */
+        function filterSkills(category) {
+            // Update active state of tab buttons
+            const tabs = document.querySelectorAll('.skill-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active', 'bg-coral-500', 'text-white', 'shadow-md');
+                tab.classList.add('bg-white', 'dark:bg-slate-900', 'border', 'border-slate-200', 'dark:border-slate-800', 'text-slate-600', 'dark:text-slate-300');
+            });
+
+            // Target correct tab to light up
+            const targetBtn = event ? event.target : null;
+            if (targetBtn) {
+                targetBtn.classList.remove('bg-white', 'dark:bg-slate-900', 'border', 'border-slate-200', 'dark:border-slate-800', 'text-slate-600', 'dark:text-slate-300');
+                targetBtn.classList.add('active', 'bg-coral-500', 'text-white', 'shadow-md');
+            }
+
+            const cards = document.querySelectorAll('.skill-card');
+            cards.forEach(card => {
+                const categories = card.getAttribute('data-category').split(' ');
+                if (category === 'all' || categories.includes(category)) {
+                    card.classList.remove('hidden');
+                    card.classList.add('opacity-100', 'scale-100');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        const terminalLogs = document.getElementById('terminalLogs');
+        const terminalInput = document.getElementById('terminalInput');
+
+        const terminalCommands = {
+            help: {
+                desc: "List available terminal simulator routines.",
+                exec: () => `Available commands:<br>
+                             - <span class='text-amber-400 font-bold'>cat resume.json</span> : Displays a fully structured JSON object of Mohamed Yasser.<br>
+                             - <span class='text-amber-400 font-bold'>skills</span> : Prints out primary technologies stacked by mastery level.<br>
+                             - <span class='text-amber-400 font-bold'>education</span> : Outputs engineering academic parameters.<br>
+                             - <span class='text-amber-400 font-bold'>contact</span> : Reveals phone pathways and social profiles.<br>
+                             - <span class='text-amber-400 font-bold'>clear</span> : Purges current console outputs.`
+            },
+            skills: {
+                desc: "Primary systems and software development stacks.",
+                exec: () => `Primary engineering stacks loaded:<br>
+                             - <span class='text-coral-500 font-bold'>Languages</span>: Python (OOP), T-SQL, PL-SQL, C Language, Java<br>
+                             - <span class='text-coral-500 font-bold'>Databases</span>: SQL Server, RDBMS, DB Normalization, Stored Procs<br>
+                             - <span class='text-coral-500 font-bold'>Concepts</span>: Data Structures, Algorithms (DSA), System Analysis`
+            },
+            education: {
+                desc: "Engineering training logs.",
+                exec: () => `Academic Log:<br>
+                             Degree: Bachelor of Computer & Systems Engineering<br>
+                             University: Zagazig University, Faculty of Engineering<br>
+                             Expected Graduation: 2028<br>
+                             Completed courses: Advanced programming, DBMS architecture, Systems Design.`
+            },
+            contact: {
+                desc: "Direct endpoints for Yasser.",
+                exec: () => `Available pathways:<br>
+                             - Phone: +201283848839<br>
+                             - Email: M01283848839@gmail.com<br>
+                             - LinkedIn: linkedin.com/in/mohamed-eldk-224725254`
+            },
+            clear: {
+                desc: "Clear screen buffer.",
+                exec: () => {
+                    terminalLogs.innerHTML = '';
+                    return null;
+                }
+            },
+            "cat resume.json": {
+                desc: "View fully formatted engineer credentials schema.",
+                exec: () => `{<br>
+                    &nbsp;&nbsp;"name": "Mohamed Yasser Abd Elaziz Ahmed",<br>
+                    &nbsp;&nbsp;"title": "Computer & Systems Engineer",<br>
+                    &nbsp;&nbsp;"location": "Sharkia, Egypt",<br>
+                    &nbsp;&nbsp;"education": {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"university": "Zagazig University",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"major": "Computer & Systems Engineering",<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;"period": "2023 - 2028"<br>
+                    &nbsp;&nbsp;},<br>
+                    &nbsp;&nbsp;"core_skills": ["Python", "SQL", "Database Design", "DSA", "OOP", "Git"],<br>
+                    &nbsp;&nbsp;"projects_count": 2<br>
+                    }`
+            }
+        };
+
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const query = terminalInput.value.trim().toLowerCase();
+                terminalInput.value = '';
+                
+                if (query === '') return;
+
+                // Echo the executed command
+                const echoLine = document.createElement('div');
+                echoLine.className = "flex gap-2 text-slate-400 mb-1";
+                echoLine.innerHTML = `<span class="text-coral-400 font-bold">visitor@yasser-systems:~$</span> <span>${query}</span>`;
+                terminalLogs.appendChild(echoLine);
+
+                // Check command dictionary
+                const resultLine = document.createElement('div');
+                resultLine.className = "text-slate-300 leading-relaxed mb-4 pl-4 border-l-2 border-slate-700";
+
+                if (terminalCommands[query]) {
+                    const output = terminalCommands[query].exec();
+                    if (output === null) return; // For clear command
+                    resultLine.innerHTML = output;
+                } else {
+                    resultLine.innerHTML = `Bash: command not found: <span class='text-red-400'>${query}</span>. Type <span class='text-amber-400'>'help'</span> to see valid endpoints.`;
+                }
+
+                terminalLogs.appendChild(resultLine);
+
+                // Keep terminal scrolled to bottom
+                const screen = document.getElementById('terminalScreen');
+                screen.scrollTop = screen.scrollHeight;
+            }
+        });
+
+        /* Contact Form Form transmission callback logic */
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('form_name').value.trim();
+            const email = document.getElementById('form_email').value.trim();
+            const subject = document.getElementById('form_subject').value.trim();
+            const msg = document.getElementById('form_message').value.trim();
+            const feedbackEl = document.getElementById('formFeedback');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackText = document.getElementById('feedbackText');
+
+            if (name && email && subject && msg) {
+                // Success Scenario Mockup (never use raw alerts in high quality UI)
+                feedbackEl.className = "mt-6 p-4 rounded-2xl flex items-center gap-3 transition-all duration-300 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 text-emerald-800 dark:text-emerald-400";
+                feedbackIcon.className = "w-8 h-8 rounded-full flex items-center justify-center text-white shrink-0 bg-emerald-500";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+                feedbackText.textContent = translations[currentLang]['form-success'];
+                
+                // Clear Form inputs
+                document.getElementById('contactForm').reset();
+            } else {
+                feedbackEl.className = "mt-6 p-4 rounded-2xl flex items-center gap-3 transition-all duration-300 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/40 text-red-800 dark:text-red-400";
+                feedbackIcon.className = "w-8 h-8 rounded-full flex items-center justify-center text-white shrink-0 bg-red-500";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`;
+                feedbackText.textContent = translations[currentLang]['form-error'];
+            }
+
+            feedbackEl.classList.remove('hidden');
+        }
+
+        /* Global initial operations load */
+        window.onload = function() {
+            startTypewriterEffect();
+            applyTranslations(); // Set default native text
+        }
+    </script>
+</body>
+</html>
